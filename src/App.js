@@ -8,13 +8,29 @@ import "./App.css";
 function App() {
     const [shoppingList, setShoppingList] = useState([]);
 
-    useEffect(() => {
+    const loadData = () => {
         fetch("https://3vk7hm-8080.csb.app/api/items")
             .then((x) => x.json())
             .then((response) => {
                 setShoppingList(response);
             });
-    }, []);
+    };
+
+    useEffect(loadData, []);
+
+    function addItem(item, quantity) {
+        fetch("https://3vk7hm-8080.csb.app/api/items/new", {
+            method: "POST",
+            body: JSON.stringify({
+                item,
+                quantity,
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8",
+            },
+            mode: "cors",
+        }).then(loadData);
+    }
 
     return (
         <div className="App">
@@ -22,7 +38,7 @@ function App() {
                 <h1>Shopping List</h1>
             </header>
             <main>
-                <ShoppingForm />
+                <ShoppingForm addItem={addItem} />
                 <ShoppingList shoppingList={shoppingList} />
             </main>
         </div>
