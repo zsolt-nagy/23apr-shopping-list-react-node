@@ -3,11 +3,13 @@ import React, { useState } from 'react'
 export default function ShoppingForm({ addItem }) {
 
   const [item, setItem] = useState('');
-  const [num, setNum] = useState(0);
+  const [num, setNum] = useState('');
 
   function handleSubmit(event) {
     event.preventDefault();
     addItem(item, num);
+    setItem('');
+    setNum('');
   }
 
   function handleItemChange(event) {
