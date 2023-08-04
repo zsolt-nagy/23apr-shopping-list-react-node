@@ -23,8 +23,7 @@ function App() {
             </header>
             <main>
                 <ShoppingForm />
-                <ShoppingList />
-                {JSON.stringify(shoppingList)}
+                <ShoppingList shoppingList={shoppingList} />
             </main>
         </div>
     );
