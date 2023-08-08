@@ -42,14 +42,29 @@ function App() {
         }).then(loadData);
     }
 
+    function updateItem(id, item, quantity) {
+        fetch("https://3vk7hm-8080.csb.app/api/items/" + id, {
+            method: "PUT",
+            body: JSON.stringify({
+                item,
+                quantity,
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8",
+                "Access-Control-Allow-Origin": "*",
+            },
+            mode: "cors",
+        }).then(loadData);
+    }
+
     return (
         <div className="App">
             <header className="App-header">
                 <h1>Shopping List</h1>
             </header>
             <main>
-                <ShoppingForm addItem={addItem} />
-                <ShoppingList shoppingList={shoppingList} deleteItem={deleteItem} />
+                <ShoppingForm addItem={addItem} mode="Add" />
+                <ShoppingList shoppingList={shoppingList} deleteItem={deleteItem} updateItem={updateItem} />
             </main>
         </div>
     );

@@ -1,15 +1,19 @@
 import React, { useState } from 'react'
 
-export default function ShoppingForm({ addItem }) {
+export default function ShoppingForm({ addItem, mode, updatedId, itemDefault, quantityDefault, updateItem }) {
 
-  const [item, setItem] = useState('');
-  const [num, setNum] = useState('');
+  const [item, setItem] = useState(itemDefault ?? '');
+  const [num, setNum] = useState(quantityDefault ?? '');
 
   function handleSubmit(event) {
     event.preventDefault();
-    addItem(item, num);
-    setItem('');
-    setNum('');
+    if (mode === 'Add') {
+      addItem(item, num);
+      setItem('');
+      setNum('');
+    } else if (mode === 'Update') {
+      updateItem(updatedId, item, num);
+    }
   }
 
   function handleItemChange(event) {
@@ -39,7 +43,7 @@ export default function ShoppingForm({ addItem }) {
                 value={num}  
                 onChange={handleQuantityChange}  
                 required /> 
-            <button type="submit">Add</button> 
+            <button type="submit">{ mode }</button> 
         </form> 
   )
 }
